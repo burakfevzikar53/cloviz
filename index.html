@@ -53,8 +53,8 @@
                    transform: translateX(-120%); animation: sweep 4.5s ease-in-out infinite; }
   a.store:nth-child(2)::after { animation-delay: .6s; }
   @keyframes sweep { 0%, 60% { transform: translateX(-120%) } 85%, 100% { transform: translateX(120%) } }
-  /* both official badges at the SAME height */
-  a.store img.badge { height: 52px; width: auto; display: block; }
+  /* both official badges at the SAME width, so the stacked column lines up (heights follow the artwork) */
+  a.store img.badge { width: 210px; max-width: 100%; height: auto; display: block; }
   a.store .qr { display: none; width: 84px; height: 84px; border-radius: 8px; }
   .note { display: none; margin: 14px 0 0; font-family: system-ui, sans-serif; font-size: 13px; color: var(--sub); }
 

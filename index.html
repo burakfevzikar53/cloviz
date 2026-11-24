@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloviz · Hafıza ve cesaret kart oyunu</title>
+<meta name="description" content="Kartlarına bak, aklında tut, KABO de! Cloviz şimdi iPhone ve Android'de.">
+
+<!-- Link önizlemesi (WhatsApp, Instagram, X, Telegram).
+     SITE_URL'yi sayfayı yayınladığın adresle değiştir, ör. https://kullaniciadi.github.io/cloviz/ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cloviz yayında!">
+<meta property="og:description" content="Hafıza ve cesaret kart oyunu. iPhone ve Android'de şimdi indir.">
+<meta property="og:image" content="https://burakfevzikar53.github.io/cloviz/link-onizleme-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://burakfevzikar53.github.io/cloviz/link-onizleme-1200x630.png">
+
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         background: radial-gradient(circle at 50% 35%, #2c1e3c, #08070f 70%); color: #f3ecd8;
+         font-family: Georgia, 'Times New Roman', serif; text-align: center; padding: 24px 16px; }
+  main { max-width: 520px; width: 100%; }
+  img.hero { width: 100%; border-radius: 16px; }
+  h1 { font-size: 26px; margin: 20px 0 6px; color: #e8c46c; letter-spacing: 2px; }
+  p { margin: 0 0 24px; color: #ccc2ac; }
+  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  a.btn { display: block; min-width: 200px; padding: 12px 20px; border-radius: 14px; background: #000;
+          border: 1px solid #999; color: #fff; text-decoration: none; font-family: system-ui, sans-serif; }
+  a.btn small { display: block; font-size: 12px; color: #ccc; }
+  a.btn b { font-size: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <img class="hero" src="link-onizleme-1200x630.png" alt="Cloviz">
+  <h1>CLOVIZ YAYINDA!</h1>
+  <p>Kartlarına bak, aklında tut, KABO de!</p>
+  <div class="btns">
+    <a class="btn" id="ios" href="https://apps.apple.com/tr/app/cloviz/id6789584692?l=tr"><small>iPhone için</small><b>App Store</b></a>
+    <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.bloomgamesofficial.cloviz"><small>Android için</small><b>Google Play</b></a>
+  </div>
+</main>
+<script>
+  // Telefondan açılınca doğrudan doğru mağazaya gider; bilgisayarda iki buton görünür.
+  (function () {
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    if (isIOS) location.replace(document.getElementById('ios').href);
+    else if (isAndroid) location.replace(document.getElementById('android').href);
+  })();
+</script>
+</body>
+</html>

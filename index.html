@@ -6,8 +6,7 @@
 <title>Cloviz</title>
 <meta name="description" content="Kartlarına bak, aklında tut, KABO de!">
 
-<!-- Link önizlemesi (WhatsApp, Instagram, X, Telegram).
-     SITE_URL'yi sayfayı yayınladığın adresle değiştir, ör. https://kullaniciadi.github.io/cloviz/ -->
+<!-- Link önizlemesi (WhatsApp, Instagram, X, Telegram) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Cloviz yayında!">
 <meta property="og:description" content="Kartlarına bak, aklında tut, KABO de!">
@@ -16,37 +15,83 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://burakfevzikar53.github.io/cloviz/link-onizleme-1200x630.png">
+<link rel="icon" href="app-icon.png">
+<link rel="apple-touch-icon" href="app-icon.png">
 
 <style>
-  :root { color-scheme: dark; }
+  :root { color-scheme: dark; --gold: #e8c46c; --ink: #f3ecd8; --sub: #c9bfa8; }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-         background: radial-gradient(circle at 50% 35%, #2c1e3c, #08070f 70%); color: #f3ecd8;
-         font-family: Georgia, 'Times New Roman', serif; text-align: center; padding: 24px 16px; }
-  main { max-width: 520px; width: 100%; }
-  img.hero { width: 100%; border-radius: 16px; }
-  h1 { font-size: 26px; margin: 20px 0 6px; color: #e8c46c; letter-spacing: 2px; }
-  p { margin: 0 0 24px; color: #ccc2ac; }
-  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .btns { align-items: center; }
-  .btns a { display: block; line-height: 0; }
-  /* Official badges: same visible height (Google's PNG carries its own margin) */
-  .btns img.as { height: 54px; }
-  .btns img.gp { height: 80px; margin: -13px 0; }
+         background: radial-gradient(circle at 50% 28%, #2e2140 0%, #0b0a14 62%); color: var(--ink);
+         font-family: Georgia, 'Times New Roman', serif; text-align: center; padding: 32px 16px; }
+  main { width: 100%; max-width: 440px; }
+
+  .icon { width: 116px; height: 116px; border-radius: 26px; display: block; margin: 0 auto;
+          box-shadow: 0 18px 40px rgba(0,0,0,.6), 0 0 60px rgba(232,196,108,.25); }
+  h1 { margin: 22px 0 2px; font-size: 40px; letter-spacing: 6px; color: var(--gold); }
+  .live { margin: 0; font-size: 15px; letter-spacing: 6px; color: var(--ink); }
+  .tag { margin: 14px 0 30px; color: var(--sub); font-size: 18px; }
+
+  .panel { border: 1px solid rgba(232,196,108,.35); border-radius: 22px; padding: 18px 16px 20px;
+           background: rgba(10,10,20,.55); }
+  .hint { margin: 0 0 14px; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600;
+          letter-spacing: 2px; color: var(--gold); }
+  .hint span { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(4px) } }
+
+  .stores { display: grid; gap: 12px; }
+  a.store { position: relative; display: flex; align-items: center; justify-content: center; gap: 16px;
+            padding: 14px; border-radius: 16px; text-decoration: none; overflow: hidden;
+            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.14);
+            transition: transform .15s ease, border-color .2s, background .2s; }
+  a.store:hover { border-color: var(--gold); background: rgba(232,196,108,.08); transform: translateY(-2px); }
+  a.store:active { transform: scale(.97); }
+  a.store:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  /* a light sweep crosses each tile every few seconds: "this is a button" */
+  a.store::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+                   background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%);
+                   transform: translateX(-120%); animation: sweep 4.5s ease-in-out infinite; }
+  a.store:nth-child(2)::after { animation-delay: .6s; }
+  @keyframes sweep { 0%, 60% { transform: translateX(-120%) } 85%, 100% { transform: translateX(120%) } }
+  /* both official badges at the SAME height */
+  a.store img.badge { height: 52px; width: auto; display: block; }
+  a.store .qr { display: none; width: 84px; height: 84px; border-radius: 8px; }
+  .note { display: none; margin: 14px 0 0; font-family: system-ui, sans-serif; font-size: 13px; color: var(--sub); }
+
+  /* On a computer you cannot install a phone app: show QR codes to scan with the phone */
+  @media (min-width: 720px) and (hover: hover) {
+    main { max-width: 560px; }
+    a.store { justify-content: space-between; padding: 14px 18px; }
+    a.store .qr { display: block; }
+    .note { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hint span, a.store::after { animation: none; } }
 </style>
 </head>
 <body>
 <main>
-  <img class="hero" src="link-onizleme-1200x630.png" alt="Cloviz">
-  <h1>CLOVIZ YAYINDA!</h1>
-  <p>Kartlarına bak, aklında tut, KABO de!</p>
-  <div class="btns">
-    <a id="ios" href="https://apps.apple.com/tr/app/cloviz/id6789584692?l=tr"><img class="as" src="app-store-badge-tr.svg" alt="App Store'dan İndirin"></a>
-    <a id="android" href="https://play.google.com/store/apps/details?id=com.bloomgamesofficial.cloviz"><img class="gp" src="google-play-badge-tr.png" alt="Google Play'den Alın"></a>
-  </div>
+  <img class="icon" src="app-icon.png" alt="Cloviz uygulama ikonu">
+  <h1>CLOVIZ</h1>
+  <p class="live">YAYINDA!</p>
+  <p class="tag">Kartlarına bak, aklında tut, KABO de!</p>
+
+  <section class="panel" aria-label="İndir">
+    <p class="hint">İNDİRMEK İÇİN DOKUN <span aria-hidden="true">↓</span></p>
+    <div class="stores">
+      <a class="store" id="ios" href="https://apps.apple.com/tr/app/cloviz/id6789584692?l=tr">
+        <img class="badge" src="app-store-badge-tr.svg" alt="App Store'dan İndirin">
+        <img class="qr" src="qr-ios.png" alt="">
+      </a>
+      <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.bloomgamesofficial.cloviz">
+        <img class="badge" src="google-play-badge-tr.png" alt="Google Play'den Alın">
+        <img class="qr" src="qr-android.png" alt="">
+      </a>
+    </div>
+    <p class="note">Bilgisayardaysan QR kodu telefonunun kamerasıyla okut.</p>
+  </section>
 </main>
 <script>
-  // Telefondan açılınca doğrudan doğru mağazaya gider; bilgisayarda iki buton görünür.
+  // Telefondan açılınca doğrudan doğru mağazaya gider; bilgisayarda bu sayfa görünür.
   (function () {
     var ua = navigator.userAgent || '';
     var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);

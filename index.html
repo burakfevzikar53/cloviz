@@ -19,72 +19,88 @@
 <link rel="apple-touch-icon" href="app-icon.png">
 
 <style>
-  :root { color-scheme: dark; --gold: #e8c46c; --ink: #f3ecd8; --sub: #c9bfa8; }
+  @property --a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  :root { color-scheme: dark; --gold: #e8c46c; --gold-hi: #fff1c4; --gold-lo: #a8782a; --ink: #f3ecd8; --sub: #c9bfa8; }
   * { box-sizing: border-box; }
   body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-         background: radial-gradient(circle at 50% 28%, #2e2140 0%, #0b0a14 62%); color: var(--ink);
+         background: radial-gradient(circle at 50% 30%, #2e2140 0%, #0b0a14 62%); color: var(--ink);
          font-family: Georgia, 'Times New Roman', serif; text-align: center; padding: 32px 16px; }
   main { width: 100%; max-width: 440px; }
 
-  .icon { width: 116px; height: 116px; border-radius: 26px; display: block; margin: 0 auto;
-          box-shadow: 0 18px 40px rgba(0,0,0,.6), 0 0 60px rgba(232,196,108,.25); }
-  h1 { margin: 22px 0 2px; font-size: 40px; letter-spacing: 6px; color: var(--gold); }
-  .live { margin: 0; font-size: 15px; letter-spacing: 6px; color: var(--ink); }
-  .tag { margin: 14px 0 30px; color: var(--sub); font-size: 18px; }
+  /* ── Logo + YAYINDA! ── */
+  .logo { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto;
+          filter: drop-shadow(0 14px 26px rgba(0,0,0,.6)); }
+  .live { margin: 10px 0 34px; font-size: 30px; font-weight: 700; letter-spacing: 8px; padding-left: 8px;
+          background: linear-gradient(180deg, var(--gold-hi), var(--gold) 45%, var(--gold-lo));
+          -webkit-background-clip: text; background-clip: text; color: transparent;
+          text-shadow: 0 0 24px rgba(232,196,108,.25); }
 
-  .panel { border: 1px solid rgba(232,196,108,.35); border-radius: 22px; padding: 18px 16px 20px;
-           background: rgba(10,10,20,.55); }
-  .hint { margin: 0 0 14px; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600;
-          letter-spacing: 2px; color: var(--gold); }
-  .hint span { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
-  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(4px) } }
+  /* ── Download block ── */
+  .cta { position: relative; }
+  .cta h2 { margin: 0; display: flex; align-items: center; gap: 14px; justify-content: center;
+            font-size: 22px; letter-spacing: 6px; padding-left: 6px; color: var(--gold); font-weight: 700; }
+  .cta h2::before, .cta h2::after { content: ""; flex: 1; max-width: 70px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold)); }
+  .cta h2::after { transform: scaleX(-1); }
+  /* three chevrons that light up one after another, pointing at the buttons */
+  .chev { display: flex; flex-direction: column; align-items: center; margin: 8px 0 16px; height: 34px; }
+  .chev i { display: block; width: 14px; height: 14px; margin-top: -6px; border-right: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold); transform: rotate(45deg); opacity: .15;
+            animation: chev 1.5s ease-in-out infinite; }
+  .chev i:nth-child(2) { animation-delay: .2s; } .chev i:nth-child(3) { animation-delay: .4s; }
+  @keyframes chev { 0%, 100% { opacity: .15 } 35% { opacity: 1 } }
 
-  .stores { display: grid; gap: 12px; }
-  a.store { position: relative; display: flex; align-items: center; justify-content: center; gap: 16px;
-            padding: 14px; border-radius: 16px; text-decoration: none; overflow: hidden;
-            background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.14);
-            transition: transform .15s ease, border-color .2s, background .2s; }
-  a.store:hover { border-color: var(--gold); background: rgba(232,196,108,.08); transform: translateY(-2px); }
+  .stores { display: grid; gap: 16px; }
+  /* each store is a big tile with a slowly rotating gold border and a soft breathing glow */
+  a.store { position: relative; display: flex; align-items: center; justify-content: center; gap: 18px;
+            padding: 3px; border-radius: 20px; text-decoration: none; isolation: isolate;
+            background: conic-gradient(from var(--a), var(--gold-lo), var(--gold-hi), var(--gold), var(--gold-lo) 40%,
+                        rgba(232,196,108,.15) 60%, var(--gold-lo) 80%, var(--gold-hi));
+            animation: spin 5s linear infinite, breathe 3s ease-in-out infinite;
+            transition: transform .15s ease; }
+  a.store:nth-child(2) { animation-delay: -2.5s, -1.5s; }
+  .store .in { width: 100%; display: flex; align-items: center; justify-content: center; gap: 18px;
+               padding: 16px 18px; border-radius: 17px; background: linear-gradient(180deg, #1a1626, #0c0b14); }
+  @keyframes spin { to { --a: 360deg } }
+  @keyframes breathe { 0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,.5), 0 0 0 rgba(232,196,108,0) }
+                       50% { box-shadow: 0 8px 24px rgba(0,0,0,.5), 0 0 26px rgba(232,196,108,.35) } }
+  a.store:hover { transform: translateY(-3px) scale(1.02); }
   a.store:active { transform: scale(.97); }
-  a.store:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  /* a light sweep crosses each tile every few seconds: "this is a button" */
-  a.store::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-                   background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%);
-                   transform: translateX(-120%); animation: sweep 4.5s ease-in-out infinite; }
-  a.store:nth-child(2)::after { animation-delay: .6s; }
-  @keyframes sweep { 0%, 60% { transform: translateX(-120%) } 85%, 100% { transform: translateX(120%) } }
-  /* both official badges at the SAME width, so the stacked column lines up (heights follow the artwork) */
-  a.store img.badge { width: 210px; max-width: 100%; height: auto; display: block; }
-  a.store .qr { display: none; width: 84px; height: 84px; border-radius: 8px; }
-  .note { display: none; margin: 14px 0 0; font-family: system-ui, sans-serif; font-size: 13px; color: var(--sub); }
+  a.store:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; }
+  a.store img.badge { width: 220px; max-width: 100%; height: auto; display: block; }
+  a.store .qr { display: none; width: 92px; height: 92px; border-radius: 10px; }
+  .note { display: none; margin: 16px 0 0; font-family: system-ui, sans-serif; font-size: 13px; color: var(--sub); }
 
   /* On a computer you cannot install a phone app: show QR codes to scan with the phone */
   @media (min-width: 720px) and (hover: hover) {
     main { max-width: 560px; }
-    a.store { justify-content: space-between; padding: 14px 18px; }
+    .store .in { justify-content: space-between; padding: 16px 22px; }
     a.store .qr { display: block; }
     .note { display: block; }
   }
-  @media (prefers-reduced-motion: reduce) { .hint span, a.store::after { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .chev i, a.store { animation: none; } .chev i { opacity: .8; } }
 </style>
 </head>
 <body>
 <main>
-  <img class="icon" src="app-icon.png" alt="Cloviz uygulama ikonu">
-  <h1>CLOVIZ</h1>
+  <img class="logo" src="cloviz-logo.webp" alt="Cloviz">
   <p class="live">YAYINDA!</p>
-  <p class="tag">Kartlarına bak, aklında tut, KABO de!</p>
 
-  <section class="panel" aria-label="İndir">
-    <p class="hint">İNDİRMEK İÇİN DOKUN <span aria-hidden="true">↓</span></p>
+  <section class="cta" aria-label="İndir">
+    <h2>HEMEN İNDİR</h2>
+    <div class="chev" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="stores">
       <a class="store" id="ios" href="https://apps.apple.com/tr/app/cloviz/id6789584692?l=tr">
-        <img class="badge" src="app-store-badge-tr.svg" alt="App Store'dan İndirin">
-        <img class="qr" src="qr-ios.png" alt="">
+        <span class="in">
+          <img class="badge" src="app-store-badge-tr.svg" alt="App Store'dan İndirin">
+          <img class="qr" src="qr-ios.png" alt="">
+        </span>
       </a>
       <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.bloomgamesofficial.cloviz">
-        <img class="badge" src="google-play-badge-tr.png" alt="Google Play'den Alın">
-        <img class="qr" src="qr-android.png" alt="">
+        <span class="in">
+          <img class="badge" src="google-play-badge-tr.png" alt="Google Play'den Alın">
+          <img class="qr" src="qr-android.png" alt="">
+        </span>
       </a>
     </div>
     <p class="note">Bilgisayardaysan QR kodu telefonunun kamerasıyla okut.</p>
